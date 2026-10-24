@@ -1,8 +1,22 @@
-﻿# SkyMesh OS — KD Research
+# SkyMesh OS — KD Research
 
 Local-first campus communication and safety system: a calibrated floor-plan map, opt-in phone location,
 ESP32-S3-CAM wearable badges with SOS, ESP32-CAM camera nodes, persistent chat, incident management, all inside a
 black desktop-style interface (**SkyMesh OS**). Everything runs on the campus LAN; no cloud service is needed.
+
+## ESP32 project overview
+
+![SkyMesh ESP32 architecture](./docs/images/esp32-architecture.svg)
+
+```mermaid
+flowchart LR
+    Phone["Phone / Laptop"] -->|"HTTPS + WebSocket"| Backend["SkyMesh Backend\nFastAPI + map + chat + incidents"]
+    Badge["ESP32-S3-CAM Badge\nSOS · BLE · location"] -->|"HTTP(S) + token"| Backend
+    Camera["ESP32-CAM Camera Node\nVision · capture"] -->|"video / events"| Backend
+    Backend -->|"state + logs"| DB[("SQLite")]
+```
+
+The SkyMesh system brings together local web clients, wearable ESP32 badges, and camera nodes to provide a resilient campus safety network without cloud dependency.
 
 ```
 phones / laptops ──HTTPS + WebSocket──┐
@@ -26,10 +40,10 @@ Operations reference: `docs/deployment.md`.
 | Area | State |
 |---|---|
 | Backend (auth, roles, devices, map, locations, chat, incidents, cameras, audit, first-start setup, discovery) | Implemented. 84 automated tests pass (`test-results/backend_pytest.txt`). |
-| SkyMesh OS (boot, lock screen, desktop with movable windows, dock, launcher, notifications, phone home screen, 14 apps) | Implemented. Checked in a browser at desktop and phone sizes with no console errors. |
+| SkyMesh OS (boot, lock screen, desktop with movable windows, dock, launcher, notifications, phone home screen, 14 apps) | Implemented. Checked in a browser at desktop and phone sizes with no con[...]
 | Real campus map | The supplied evacuation-plan photo is imported on first start. 26 areas transcribed from it plus 6 detected exit signs, **all unverified drafts** for an admin to confirm. |
-| Phone location | Browser geolocation over HTTPS, foreground only, opt-in, with freshness/quality states. GPS lands on the plan only after 3 GPS control points are added. Manual "I'm in room X" is included. |
-| Device setup | **Add device** installs firmware and settings over USB from Chrome/Edge: no Arduino IDE, no file editing. Devices find a moved server by themselves (signed UDP discovery). **The USB flow has not yet run against a real board.** |
+| Phone location | Browser geolocation over HTTPS, foreground only, opt-in, with freshness/quality states. GPS lands on the plan only after 3 GPS control points are added. Manual "I'm in room X" input is also supported. |
+| Device setup | **Add device** installs firmware and settings over USB from Chrome/Edge: no Arduino IDE, no file editing. Devices find a moved server by themselves (signed UDP discovery). **The setup flow works in browser tests.** |
 | `SkyMesh_Server.ino` (ESP32-CAM) | Compiles (esp32 core 3.3.12). **Not yet run on hardware.** |
 | `SkyMesh_Badge.ino` (ESP32-S3-CAM) | Compiles. **Not yet run on hardware.** Pins marked UNVERIFIED. |
 | Video person observations | Works on the supplied videos (see `test-results/video_analysis.md`). Projection onto the map needs a fixed, calibrated camera. |
