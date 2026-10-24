@@ -1,0 +1,25 @@
+{
+  "built_at": "2026-10-23T08:31:21+00:00",
+  "images": [
+    {
+      "role": "badge",
+      "chip": "ESP32-S3",
+      "label": "Wearable badge (ESP32-S3-CAM)",
+      "file": "skymesh-badge-esp32s3.bin",
+      "version": "skymesh-badge-0.5.2",
+      "size": 1454080,
+      "sha256": "a8463e3b6e9841a6ebaa2bb8125d56bd5a188a362b63903a20af1b58d14bf090",
+      "address": 0
+    },
+    {
+      "role": "camera_node",
+      "chip": "ESP32",
+      "label": "Camera node (AI-Thinker ESP32-CAM)",
+      "file": "skymesh-camera-esp32cam.bin",
+      "version": "skymesh-server-0.4.1",
+      "size": 1277952,
+      "sha256": "b7b75a9360414c10ace8c431d579088760a03dc295f3826eeefcf760a1558900",
+      "address": 0
+    }
+  ]
+}
