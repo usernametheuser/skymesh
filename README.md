@@ -1,4 +1,4 @@
-# SkyMesh OS — KD Research
+# SkyMesh OS 
 
 Local-first campus communication and safety system: a calibrated floor-plan map, opt-in phone location,
 ESP32-S3-CAM wearable badges with SOS, ESP32-CAM camera nodes, persistent chat, incident management, all inside a
